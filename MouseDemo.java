@@ -10,8 +10,10 @@ import javax.swing.event.*;
  * @author Ira Goldstein
  * @version Spring 2025
  */
-public class MouseDemo implements Runnable, MouseListener, MouseMotionListener, MouseWheelListener {
-
+public class MouseDemo extends MouseAdapter implements Runnable, ActionListener {
+	int mouseClicks = 0;
+	JButton reset;
+	JPanel panel;
 	/**
 	 * The run method to set up the graphical user interface
 	 */
@@ -22,10 +24,11 @@ public class MouseDemo implements Runnable, MouseListener, MouseMotionListener, 
 		JFrame frame = new JFrame("MouseDemo");
 		frame.setPreferredSize(new Dimension(500, 500));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		JPanel main = new JPanel(new BorderLayout());
 
 		// construct an anonymous class that extends JPanel,
 		// for which we override the paintComponent method
-		JPanel panel = new JPanel() {
+		panel = new JPanel() {
 			@Override
 			public void paintComponent(Graphics g) {
 
@@ -33,7 +36,7 @@ public class MouseDemo implements Runnable, MouseListener, MouseMotionListener, 
 
 				FontMetrics fm = g.getFontMetrics();
 
-				String toDisplay = "Mouse Around and See!";
+				String toDisplay = "Mouse Clicks: " + mouseClicks;
 				int stringWidth = fm.stringWidth(toDisplay);
 				int stringAscent = fm.getAscent();
 
@@ -43,10 +46,20 @@ public class MouseDemo implements Runnable, MouseListener, MouseMotionListener, 
 				g.drawString(toDisplay, xStart, yStart);
 			}
 		};
-		frame.add(panel);
+		main.add(panel, BorderLayout.CENTER);
 		panel.addMouseListener(this);
 		panel.addMouseMotionListener(this);
 		panel.addMouseWheelListener(this);
+		
+
+
+		JPanel buttonPanel = new JPanel();
+		reset = new JButton("Reset Count");
+		reset.addActionListener(this);
+		buttonPanel.add(reset);
+		main.add(buttonPanel, BorderLayout.SOUTH);
+
+		frame.add(main);
 
 		// display the window we've created
 		frame.pack();
@@ -56,6 +69,8 @@ public class MouseDemo implements Runnable, MouseListener, MouseMotionListener, 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		System.out.println("mouseClicked: " + e);
+		mouseClicks++;
+		panel.repaint();
 	}
 
 	@Override
@@ -91,6 +106,15 @@ public class MouseDemo implements Runnable, MouseListener, MouseMotionListener, 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		System.out.println("mouseWheelMoved: " + e);
+	}
+
+	public void actionPerformed(ActionEvent e)
+	{
+		if (e.getSource() == reset)
+		{
+			mouseClicks = 0;
+			panel.repaint();
+		}
 	}
 
 	public static void main(String args[]) {
