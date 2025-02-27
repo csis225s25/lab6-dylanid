@@ -2,7 +2,7 @@
 CSIS-225 Lab , Spring 2025
 # Google Doc URL:
 
-# Names:
+# Names: Dylan Iddings, Max Weisman
 
 - HelloGraphics.java: Variation on HelloWorld using paintComponent to "draw" the text.
 - ListJavaFonts.java: Does what it says.  It lists the available Font Family names
