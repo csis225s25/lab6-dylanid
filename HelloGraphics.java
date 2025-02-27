@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
+
 import javax.swing.*;
 
 /**
@@ -23,7 +25,14 @@ class GraphicsPanel extends JPanel {
         // the Graphics object passed to this method has many methods
         // we can use to draw in the area of the panel, one of which
         // allows us to draw a String at a given x,y position
-        g.drawString("Hello, Java Graphics World!", 0, 20);
+        Font font = new Font("Comic Sans MS", 1, 20);
+        g.setFont(font);
+        super.setForeground(new Color(255, 0, 0));
+        super.setBackground(new Color(0,0,255));
+        String str = "Hello, Java Graphics World!";
+        FontMetrics fontMetrics = g.getFontMetrics();
+        Rectangle2D stringBounds = fontMetrics.getStringBounds(str, g);
+        g.drawString(str, super.getWidth()/2 - (int)stringBounds.getWidth()/2, super.getHeight()/2 - (int)stringBounds.getHeight()/2);
     }
 }
 
