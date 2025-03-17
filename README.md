@@ -1,6 +1,6 @@
 # Lab6 - Graphics and Mouse Events
 CSIS-225 Lab , Spring 2025
-# Google Doc URL:
+# Google Doc URL: https://docs.google.com/document/d/1V9w10spWdVsCBCw0pgIUkHGgFs8KchbA46ImbCpHbWw/edit?tab=t.0
 
 # Names: Dylan Iddings, Max Weisman
 
